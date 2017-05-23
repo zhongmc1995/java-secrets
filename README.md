@@ -5,3 +5,4 @@ java学习笔记日记
 ### 设计模式(java实现)
 * [工厂模式](design-pattern/factory.md)
 * [代理模式](design-pattern/proxy.md)
+* [链式代理](design-pattern/proxy-chain.md)
