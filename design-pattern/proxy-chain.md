@@ -327,13 +327,13 @@ public class AOPTest {
     }
 }
 ```
-结果：
-ControllerBeforeAspect before
-ControllerAfterAspect before
-add java book
-ControllerAfterAspect after
-ControllerBeforeAspect after
-success
+## 结果
+   1. ControllerBeforeAspect before
+   2. ControllerAfterAspect before
+   3. add java book
+   4. ControllerAfterAspect after
+   5. ControllerBeforeAspect after
+   6. success
 
 **注**:参考：https://my.oschina.net/huangyong/blog/170494
 
