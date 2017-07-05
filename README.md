@@ -14,4 +14,4 @@ java学习笔记日记
 * [session相关知识点](web/session.md)
 
 ### springMVC
-* [springMVC-DispatchServlet源码分析](springMVC/springMVC-DispatchServlet.md)
+* [springMVC-DispatcherServlet源码分析](springMVC/springMVC-DispatcherServlet.md)
