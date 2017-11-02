@@ -62,3 +62,40 @@ String str = stream.collect(Collectors.joining()).toString();
 map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered
 * Terminal：
 forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、 anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 iterator
+      
+#### map/flatMap
+它的作用就是把 input Stream 的每一个元素，映射成 output Stream 的另外一个元素。
+转换成大写
+```java
+List<String> output = wordList.stream().
+map(String::toUpperCase).
+collect(Collectors.toList());
+```
+生成平方数
+```java
+List<Integer> nums = Arrays.asList(1, 2, 3, 4);
+List<Integer> squareNums = nums.stream().
+map(n -> n * n).
+collect(Collectors.toList());
+```
+map 生成的是个 1:1 映射，每个输入元素，都按照规则转换成为另外一个元素。还有一些场景，是一对多映射关系的，这时需要 flatMap。
+一对多
+```java
+Stream<List<Integer>> inputStream = Stream.of(
+ Arrays.asList(1),
+ Arrays.asList(2, 3),
+ Arrays.asList(4, 5, 6)
+ );
+Stream<Integer> outputStream = inputStream.
+flatMap((childList) -> childList.stream());
+```
+flatMap 把 input Stream 中的层级结构扁平化，就是将最底层元素抽出来放到一起，最终 output 的新 Stream 里面已经没有 List 了，都是直接的数字。
+#### filter
+filter 对原始 Stream 进行某项测试，通过测试的元素被留下来生成一个新 Stream。
+留下偶数
+```java
+Integer[] sixNums = {1, 2, 3, 4, 5, 6};
+Integer[] evens =
+Stream.of(sixNums).filter(n -> n%2 == 0).toArray(Integer[]::new);
+```
+经过条件“被 2 整除”的 filter，剩下的数字为 {2, 4, 6}。
