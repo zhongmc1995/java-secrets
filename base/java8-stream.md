@@ -196,7 +196,7 @@ Map<String, List<Employee>> employeesByCity =
 Map<String, Long> numEmployeesByCity =
   employees.stream().collect(Collectors.groupingBy(Employee::getCity, counting()));
 ```         
-result:{New York=[Charles], Hong Kong=[Dorothy], London=[Alice, Bob]}    
+result:{New York=[Charles], Hong Kong=[Dorothy], London=[Alice, Bob]}                     
        {New York=1, Hong Kong=1, London=2}             
 
 ##### partitioningBy
@@ -209,7 +209,7 @@ Map<Boolean, Map<String, Long>> result =
   employees.stream().collect(Collectors.partitioningBy(e -> e.getNumSales() > 150,
                                Collectors.groupingBy(Employee::getCity, counting())));
 ```
-result:{false=[Bob], true=[Alice, Charles, Dorothy]}
+result:{false=[Bob], true=[Alice, Charles, Dorothy]}                      
       {false={London=1}, true={New York=1, Hong Kong=1, London=1}}
        
 
