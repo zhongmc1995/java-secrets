@@ -123,6 +123,6 @@ for (Person p : roster) {
  .map(String::toUpperCase)
  .peek(e -> System.out.println("Mapped value: " + e))
  .collect(Collectors.toList());
- ```
  
 }
+```
