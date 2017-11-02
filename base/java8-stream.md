@@ -177,21 +177,39 @@ List<Person> persons = new ArrayList();
 List<Person> personList2 = persons.stream().limit(2).sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).collect(Collectors.toList());
 System.out.println(personList2);
 ```
-#### groupingBy
-按照年龄归组
+#### groupingBy/partitioningBy 
+数据准备：       
++----------+------------+-----------------+
+| Name     | City       | Number of Sales |
++----------+------------+-----------------+
+| Alice    | London     | 200             |
+| Bob      | London     | 150             |
+| Charles  | New York   | 160             |
+| Dorothy  | Hong Kong  | 190             |
++----------+------------+-----------------+
+##### groupingBy
+按照城市归组
 ```java
-Map<Integer, List<Person>> personGroups = persons.
- collect(Collectors.groupingBy(Person::getAge));
-Iterator it = personGroups.entrySet().iterator();
-while (it.hasNext()) {
- Map.Entry<Integer, List<Person>> persons = (Map.Entry) it.next();
- System.out.println("Age " + persons.getKey() + " = " + persons.getValue().size());
-}
+Map<String, List<Employee>> employeesByCity =
+  employees.stream().collect(groupingBy(Employee::getCity));
+  
+Map<String, Long> numEmployeesByCity =
+  employees.stream().collect(groupingBy(Employee::getCity, counting()));
 ```         
-按照未成年人和成年人归组
+result:{New York=[Charles], Hong Kong=[Dorothy], London=[Alice, Bob]}    
+       {New York=1, Hong Kong=1, London=2}             
+
+##### partitioningBy
+分区是一种特殊的分组，结果 map 至少包含两个不同的分组——一个true，一个false。例如，如果想找出最优秀的员工，你可以将所有雇员分为两组，一组销售量大于 N，另一组小于 N，使用 partitioningBy 收集器,你也可以将 groupingBy 收集器传递给 partitioningBy 收集器来将联合使用分区和分组。例如，你可以统计每个分区中的每个城市的雇员人数：
 ```java
-Map<Boolean, List<Person>> children = persons.
- collect(Collectors.partitioningBy(p -> p.getAge() < 18));
-System.out.println("Children number: " + children.get(true).size());
-System.out.println("Adult number: " + children.get(false).size());
+Map<Boolean, List<Employee>> partitioned =
+  employees.stream().collect(partitioningBy(e -> e.getNumSales() > 150));
+  
+Map<Boolean, Map<String, Long>> result =
+  employees.stream().collect(partitioningBy(e -> e.getNumSales() > 150,
+                               groupingBy(Employee::getCity, counting())));
 ```
+result:{false=[Bob], true=[Alice, Charles, Dorothy]}
+      {false={London=1}, true={New York=1, Hong Kong=1, London=1}}
+       
+
