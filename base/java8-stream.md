@@ -13,13 +13,13 @@ Stream 就如同一个迭代器（Iterator），单向，不可往复，数据�
       ![index1](pic/img001.png)                                                              
                    
 生成流的常用方式：                
-方法 | 描述 |
-----|------|
-Collection.stream() |  使用一个集合的元素创建一个流。  | 
-Stream.of(T...)| 使用传递给工厂方法的参数创建一个流。  |
-Stream.of(T[]) | 使用一个数组的元素创建一个流。  |
-Stream.empty()| 创建一个空流。  |
-BufferedReader.lines() | 创建一个有来自 BufferedReader 的行组成的流。  |
+|方法 | 描述 |
+|----|------|
+|Collection.stream() |  使用一个集合的元素创建一个流。  | 
+|Stream.of(T...)| 使用传递给工厂方法的参数创建一个流。  |
+|Stream.of(T[]) | 使用一个数组的元素创建一个流。  |
+|Stream.empty()| 创建一个空流。  |
+|BufferedReader.lines() | 创建一个有来自 BufferedReader 的行组成的流。  |
 方法	                   描述
 Collection.stream()	     使用一个集合的元素创建一个流。
 Stream.of(T...)	         使用传递给工厂方法的参数创建一个流。
