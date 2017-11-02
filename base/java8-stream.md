@@ -113,7 +113,8 @@ for (Person p : roster) {
  if (p.getGender() == Person.Sex.MALE) {
  System.out.println(p.getName());
  }
- 
+```
+
  #### peek
  peek 对每个元素执行操作并返回一个新的 Stream,一般可以用来调试
  ```java
