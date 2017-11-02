@@ -179,22 +179,22 @@ System.out.println(personList2);
 ```
 #### groupingBy/partitioningBy 
 数据准备：       
-+----------+------------+-----------------+
+
 | Name     | City       | Number of Sales |
-+----------+------------+-----------------+
+|----|------|---------|
 | Alice    | London     | 200             |
 | Bob      | London     | 150             |
 | Charles  | New York   | 160             |
 | Dorothy  | Hong Kong  | 190             |
-+----------+------------+-----------------+
+
 ##### groupingBy
 按照城市归组
 ```java
 Map<String, List<Employee>> employeesByCity =
-  employees.stream().collect(groupingBy(Employee::getCity));
+  employees.stream().collect(Collectors.groupingBy(Employee::getCity));
   
 Map<String, Long> numEmployeesByCity =
-  employees.stream().collect(groupingBy(Employee::getCity, counting()));
+  employees.stream().collect(Collectors.groupingBy(Employee::getCity, counting()));
 ```         
 result:{New York=[Charles], Hong Kong=[Dorothy], London=[Alice, Bob]}    
        {New York=1, Hong Kong=1, London=2}             
@@ -203,10 +203,10 @@ result:{New York=[Charles], Hong Kong=[Dorothy], London=[Alice, Bob]}
 分区是一种特殊的分组，结果 map 至少包含两个不同的分组——一个true，一个false。例如，如果想找出最优秀的员工，你可以将所有雇员分为两组，一组销售量大于 N，另一组小于 N，使用 partitioningBy 收集器,你也可以将 groupingBy 收集器传递给 partitioningBy 收集器来将联合使用分区和分组。例如，你可以统计每个分区中的每个城市的雇员人数：
 ```java
 Map<Boolean, List<Employee>> partitioned =
-  employees.stream().collect(partitioningBy(e -> e.getNumSales() > 150));
+  employees.stream().collect(Collectors.partitioningBy(e -> e.getNumSales() > 150));
   
 Map<Boolean, Map<String, Long>> result =
-  employees.stream().collect(partitioningBy(e -> e.getNumSales() > 150,
+  employees.stream().collect(Collectors.partitioningBy(e -> e.getNumSales() > 150,
                                groupingBy(Employee::getCity, counting())));
 ```
 result:{false=[Bob], true=[Alice, Charles, Dorothy]}
