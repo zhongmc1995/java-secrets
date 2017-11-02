@@ -207,7 +207,7 @@ Map<Boolean, List<Employee>> partitioned =
   
 Map<Boolean, Map<String, Long>> result =
   employees.stream().collect(Collectors.partitioningBy(e -> e.getNumSales() > 150,
-                               groupingBy(Employee::getCity, counting())));
+                               Collectors.groupingBy(Employee::getCity, counting())));
 ```
 result:{false=[Bob], true=[Alice, Charles, Dorothy]}
       {false={London=1}, true={New York=1, Hong Kong=1, London=1}}
