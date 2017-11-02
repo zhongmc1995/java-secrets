@@ -12,7 +12,12 @@ Stream 就如同一个迭代器（Iterator），单向，不可往复，数据�
 获取一个数据源（source）→ 数据转换→执行操作获取想要的结果，每次转换原有 Stream 对象不改变，返回一个新的 Stream 对象（可以有多次转换），这就允许对其操作可以像链条一样排列，变成一个管道，如下图所示：                 
       ![index1](pic/img001.png)                                                              
                    
-生成流的常用方式：                
+生成流的常用方式：  
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
 |方法 | 描述 |
 |----|------|
 |Collection.stream() |  使用一个集合的元素创建一个流。  | 
