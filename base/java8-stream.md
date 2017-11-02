@@ -180,8 +180,7 @@ System.out.println(personList2);
 #### groupingBy
 按照年龄归组
 ```java
-Map<Integer, List<Person>> personGroups = Stream.generate(new PersonSupplier()).
- limit(100).
+Map<Integer, List<Person>> personGroups = persons.
  collect(Collectors.groupingBy(Person::getAge));
 Iterator it = personGroups.entrySet().iterator();
 while (it.hasNext()) {
@@ -191,8 +190,7 @@ while (it.hasNext()) {
 ```         
 按照未成年人和成年人归组
 ```java
-Map<Boolean, List<Person>> children = Stream.generate(new PersonSupplier()).
- limit(100).
+Map<Boolean, List<Person>> children = persons.
  collect(Collectors.partitioningBy(p -> p.getAge() < 18));
 System.out.println("Children number: " + children.get(true).size());
 System.out.println("Adult number: " + children.get(false).size());
