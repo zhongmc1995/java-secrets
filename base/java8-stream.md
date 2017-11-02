@@ -127,3 +127,47 @@ for (Person p : roster) {
  
 }
 ```
+#### reduce
+这个方法的主要作用是把 Stream 元素组合起来。它提供一个起始值（种子），然后依照运算规则（BinaryOperator），和前面 Stream 的第一个、第二个、第 n 个元素组合。从这个意义上说，字符串拼接、数值的 sum、min、max、average 都是特殊的 reduce。例如 Stream 的 sum 就相当于
+Integer sum = integers.reduce(0, (a, b) -> a+b); 或
+Integer sum = integers.reduce(0, Integer::sum);
+也有没有起始值的情况，这时会把 Stream 的前面两个元素组合起来，返回的是 Optional。     
+reduce用例：     
+```java
+// 字符串连接，concat = "ABCD"
+String concat = Stream.of("A", "B", "C", "D").reduce("", String::concat); 
+// 求最小值，minValue = -3.0
+double minValue = Stream.of(-1.5, 1.0, -3.0, -2.0).reduce(Double.MAX_VALUE, Double::min); 
+// 求和，sumValue = 10, 有起始值
+int sumValue = Stream.of(1, 2, 3, 4).reduce(0, Integer::sum);
+// 求和，sumValue = 10, 无起始值
+sumValue = Stream.of(1, 2, 3, 4).reduce(Integer::sum).get();
+// 过滤，字符串连接，concat = "ace"
+concat = Stream.of("a", "B", "c", "D", "e", "F").
+ filter(x -> x.compareTo("Z") > 0).
+ reduce("", String::concat);
+ ```
+ 
+ #### min/max/distinct
+ 它们作为特殊的 reduce 方法被独立出来也是因为求最大最小值是很常见的操作。             
+ 找出最长一行的长度    
+ ```java
+ BufferedReader br = new BufferedReader(new FileReader("c:\\SUService.log"));
+int longest = br.lines().
+ mapToInt(String::length).
+ max().
+ getAsInt();
+br.close();
+System.out.println(longest);
+```
+#### sorted
+对 Stream 的排序通过 sorted 进行，它比数组的排序更强之处在于你可以首先对 Stream 进行各类 map、filter、limit、skip 甚至 distinct 来减少元素数量后，再排序，这能帮助程序明显缩短执行时间。
+```java
+List<Person> persons = new ArrayList();
+ for (int i = 1; i <= 5; i++) {
+ Person person = new Person(i, "name" + i);
+ persons.add(person);
+ }
+List<Person> personList2 = persons.stream().limit(2).sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).collect(Collectors.toList());
+System.out.println(personList2);
+```
