@@ -99,3 +99,30 @@ Integer[] evens =
 Stream.of(sixNums).filter(n -> n%2 == 0).toArray(Integer[]::new);
 ```
 经过条件“被 2 整除”的 filter，剩下的数字为 {2, 4, 6}。
+
+#### forEach
+forEach 方法接收一个 Lambda 表达式，然后在 Stream 的每一个元素上执行该表达式。           
+打印姓名（forEach 和 pre-java8 的对比）
+```java
+// Java 8
+roster.stream()
+ .filter(p -> p.getGender() == Person.Sex.MALE)
+ .forEach(p -> System.out.println(p.getName()));
+// Pre-Java 8
+for (Person p : roster) {
+ if (p.getGender() == Person.Sex.MALE) {
+ System.out.println(p.getName());
+ }
+ 
+ #### peek
+ peek 对每个元素执行操作并返回一个新的 Stream,一般可以用来调试
+ ```java
+ Stream.of("one", "two", "three", "four")
+ .filter(e -> e.length() > 3)
+ .peek(e -> System.out.println("Filtered value: " + e))
+ .map(String::toUpperCase)
+ .peek(e -> System.out.println("Mapped value: " + e))
+ .collect(Collectors.toList());
+ ```
+ 
+}
