@@ -44,3 +44,21 @@ stream = list.stream();
 ```
 需要注意的是，对于基本数值型，目前有三种对应的包装类型 Stream：
 IntStream、LongStream、DoubleStream。当然我们也可以用 Stream<Integer>、Stream<Long> >、Stream<Double>，但是 boxing 和 unboxing 会很耗时，所以特别为这三种基本数值型提供了对应的 Stream。
+流转换为其它数据结构
+```java
+// 1. Array
+String[] strArray1 = stream.toArray(String[]::new);
+// 2. Collection
+List<String> list1 = stream.collect(Collectors.toList());
+List<String> list2 = stream.collect(Collectors.toCollection(ArrayList::new));
+Set set1 = stream.collect(Collectors.toSet());
+Stack stack1 = stream.collect(Collectors.toCollection(Stack::new));
+// 3. String
+String str = stream.collect(Collectors.joining()).toString();
+```
+###流的操作
+当把一个数据结构包装成 Stream 后，就要开始对里面的元素进行各类操作了。常见的操作可以归类如下。
+* Intermediate：
+map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered
+* Terminal：
+forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、 anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 iterator
