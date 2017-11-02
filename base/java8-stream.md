@@ -12,7 +12,14 @@ Stream 就如同一个迭代器（Iterator），单向，不可往复，数据�
 获取一个数据源（source）→ 数据转换→执行操作获取想要的结果，每次转换原有 Stream 对象不改变，返回一个新的 Stream 对象（可以有多次转换），这就允许对其操作可以像链条一样排列，变成一个管道，如下图所示：                 
       ![index1](pic/img001.png)                                                              
                    
-生成流的常用方式：
+生成流的常用方式：                
+方法 | 描述 |
+----|------|
+Collection.stream() |  使用一个集合的元素创建一个流。  | 
+Stream.of(T...)| 使用传递给工厂方法的参数创建一个流。  |
+Stream.of(T[]) | 使用一个数组的元素创建一个流。  |
+Stream.empty()| 创建一个空流。  |
+BufferedReader.lines() | 创建一个有来自 BufferedReader 的行组成的流。  |
 方法	                   描述
 Collection.stream()	     使用一个集合的元素创建一个流。
 Stream.of(T...)	         使用传递给工厂方法的参数创建一个流。
@@ -56,7 +63,8 @@ Stack stack1 = stream.collect(Collectors.toCollection(Stack::new));
 // 3. String
 String str = stream.collect(Collectors.joining()).toString();
 ```
-###流的操作
+
+### 流的操作                       
 当把一个数据结构包装成 Stream 后，就要开始对里面的元素进行各类操作了。常见的操作可以归类如下。
 * Intermediate：
 map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered
