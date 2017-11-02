@@ -171,3 +171,23 @@ List<Person> persons = new ArrayList();
 List<Person> personList2 = persons.stream().limit(2).sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).collect(Collectors.toList());
 System.out.println(personList2);
 ```
+#### groupingBy
+按照年龄归组
+```java
+Map<Integer, List<Person>> personGroups = Stream.generate(new PersonSupplier()).
+ limit(100).
+ collect(Collectors.groupingBy(Person::getAge));
+Iterator it = personGroups.entrySet().iterator();
+while (it.hasNext()) {
+ Map.Entry<Integer, List<Person>> persons = (Map.Entry) it.next();
+ System.out.println("Age " + persons.getKey() + " = " + persons.getValue().size());
+}
+```         
+按照未成年人和成年人归组
+```java
+Map<Boolean, List<Person>> children = Stream.generate(new PersonSupplier()).
+ limit(100).
+ collect(Collectors.partitioningBy(p -> p.getAge() < 18));
+System.out.println("Children number: " + children.get(true).size());
+System.out.println("Adult number: " + children.get(false).size());
+```
